@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TodoNude | Xano-Powered Task Manager</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">✓</div>
+                    <h1 class="logo-text">TodoNude</h1>
+                </div>
+                <p class="tagline">Xano-Powered Task Management with Nude Aesthetics</p>
+                <div class="api-status" id="apiStatus"> <i class="fas fa-circle"></i> <span id="statusText">Connecting
+                        to Xano...</span> </div>
+            </div>
+        </header> <!-- Main Content -->
+        <main class="main-content">
+            <!-- Left Panel - Add/Edit Task -->
+            <section class="form-panel card">
+                <h2 class="card-title"> <i class="fas fa-plus-circle"></i> <span id="formTitle">Add New Task</span>
+                </h2>
+                <form id="taskForm"> <input type="hidden" id="taskId">
+                    <div class="form-group"> <label for="title"><i class="fas fa-heading"></i> Task Title *</label>
+                        <input type="text" id="title" class="form-input" required placeholder="What needs to be done?">
+                    </div>
+                    <div class="form-group"> <label for="description"><i class="fas fa-align-left"></i>
+                            Description</label> <textarea id="description" class="form-textarea"
+                            placeholder="Add details (optional)"></textarea> </div>
+                    <div class="form-group"> <label for="dueDate"><i class="fas fa-calendar-alt"></i> Due Date &
+                            Time</label> <input type="datetime-local" id="dueDate" class="form-datetime"> </div>
+                    <div class="form-group"> <label for="priority"><i class="fas fa-flag"></i> Priority</label> <select
+                            id="priority" class="form-select">
+                            <option value="low">Low Priority</option>
+                            <option value="medium" selected>Medium Priority</option>
+                            <option value="high">High Priority</option>
+                        </select> </div> <button type="submit" class="btn btn-primary" id="submitBtn"> <i
+                            class="fas fa-paper-plane"></i> <span id="submitText">Add Task</span> </button>
+                </form>
+            </section> <!-- Right Panel - Task List -->
+            <section class="tasks-panel card">
+                <div class="panel-header">
+                    <h2 class="card-title"> <i class="fas fa-tasks"></i> My Tasks </h2>
+                    <div class="filters"> <button class="filter-btn active" data-filter="all">All</button> <button
+                            class="filter-btn" data-filter="pending">Pending</button> <button class="filter-btn"
+                            data-filter="completed">Completed</button> <button class="filter-btn"
+                            data-filter="overdue">Overdue</button> </div>
+                </div> <!-- Statistics -->
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalTasks">0</div>
+                        <div class="stat-label">Total Tasks</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="completedTasks">0</div>
+                        <div class="stat-label">Completed</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="pendingTasks">0</div>
+                        <div class="stat-label">Pending</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="overdueTasks">0</div>
+                        <div class="stat-label">Overdue</div>
+                    </div>
+                </div> <!-- Task List Container -->
+                <div class="task-list" id="taskListContainer">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        <p>Loading your tasks from Xano...</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div> <!-- Delete Confirmation Modal -->
+    <div class="modal-overlay" id="deleteModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-exclamation-triangle"></i> Confirm Deletion</h3> <button class="close-modal"
+                    id="closeDeleteModal">&times;</button>
+            </div>
+            <p>Are you sure you want to delete "<span id="taskToDeleteTitle"></span>"? This action cannot be undone.</p>
+            <div style="display: flex; gap: 15px; margin-top: 25px;"> <button class="btn btn-secondary"
+                    id="cancelDelete"> <i class="fas fa-times"></i> Cancel </button> <button class="btn btn-danger"
+                    id="confirmDelete"> <i class="fas fa-trash"></i> Delete </button> </div>
+        </div>
+    </div> <!-- Toast Notifications Container -->
+    <div class="toast-container" id="toastContainer"></div> <!-- Theme Toggle Button --> <button class="theme-toggle"
+        id="themeToggle" title="Toggle Dark/Light Mode"> <i class="fas fa-moon"></i> </button> <!-- JavaScript -->
+    <script src="app.js"></script>
+</body>
+
+</html>
